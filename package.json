@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "frontend-build-dev": "cd frontend && npm run build",
+    "frontend-start-dev": "cd frontend && npm run start",
+    "backend-build-dev": "cd backend && npm run build",
+    "backend-start-dev": "cd backend && npm run start:dev"
   },
   "keywords": [],
   "author": "Gnedov Pavel",
