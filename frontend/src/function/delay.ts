@@ -6,6 +6,7 @@ export function delay(callback: (...args: any[]) => void, ms: number = 0): (...a
     if (timer !== null) {
       clearTimeout(timer)
     }
-    timer = setTimeout(callback(...argsStore), ms)
+    // @ts-ignore
+    timer = setTimeout(callback, ms, ...argsStore)
   }
 }
