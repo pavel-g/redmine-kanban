@@ -1,6 +1,6 @@
 import {RedmineUser} from "../models/redmine-user";
 import axios from "axios";
-import {Config} from "../config";
+import {getConfig} from "../config";
 
 export class UsersLoaderService {
 
@@ -10,7 +10,7 @@ export class UsersLoaderService {
     if (this.users.hasOwnProperty(userId)) {
       return this.users[userId]
     }
-    const url = `${Config.backendUrl}/user/${userId}`
+    const url = `${getConfig().backendUrl}/user/${userId}`
     const data = await axios.get<RedmineUser>(url)
     const userData = data.data
     this.users[userId] = userData

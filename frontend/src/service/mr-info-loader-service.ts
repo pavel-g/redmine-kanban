@@ -1,5 +1,5 @@
 import {MergeRequestStatuses} from "../models/mergerequest-statuses";
-import {Config} from "../config";
+import {getConfig} from "../config";
 import axios from "axios";
 import {IssueNumberAndMrInfo} from "../models/issuenumber-and-mr-info";
 
@@ -14,7 +14,7 @@ export class MrInfoLoaderService {
       return this.mrs[issueNumber] || []
     }
 
-    const url = `${Config.backendUrl}/issue/${issueNumber}/merge-requests/info`
+    const url = `${getConfig().backendUrl}/issue/${issueNumber}/merge-requests/info`
     const resp = await axios.get<MergeRequestStatuses[]>(url)
     this.mrs[issueNumber] = resp.data || []
     return this.mrs[issueNumber]
@@ -33,7 +33,7 @@ export class MrInfoLoaderService {
       }
     }
 
-    const url = `${Config.backendUrl}/issues/merge-requests-info`
+    const url = `${getConfig().backendUrl}/issues/merge-requests-info`
     const resp = await axios.post<IssueNumberAndMrInfo[]>(url, idsForLoading)
     if (resp.data) {
       res.push(...resp.data)

@@ -1,7 +1,7 @@
 import {action, makeObservable, observable} from "mobx";
 import {BoardSidebarItem} from "../models/board-sidebar-item";
 import axios from "axios"
-import {Config} from "../config";
+import {getConfig} from "../config";
 
 export class BoardStore {
 
@@ -17,7 +17,7 @@ export class BoardStore {
 
   async loadItems(force: boolean = false): Promise<BoardSidebarItem[]> {
     if (this.items.length === 0 || force) {
-      const response = await axios.get<BoardSidebarItem[]>(`${Config.backendUrl}/boards`)
+      const response = await axios.get<BoardSidebarItem[]>(`${getConfig().backendUrl}/boards`)
       this.items.splice(0, this.items.length)
       response.data.forEach(item => this.items.push(item))
     }
@@ -28,7 +28,7 @@ export class BoardStore {
     const postData = {
       name: name
     }
-    await axios.post(`${Config.backendUrl}/board/create`, postData)
+    await axios.post(`${getConfig().backendUrl}/board/create`, postData)
     await this.loadItems(true)
   }
 

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import ReactTrello from "react-trello";
 import {observer} from "mobx-react";
-import {Config} from "../config";
+import {getConfig} from "../config";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
 import AddIssueMenu from "./add-issue-menu";
 import AddIssueDialog from "./add-issue-dialog";
@@ -36,7 +36,7 @@ const useStyles = makeStyles(() =>
 )
 
 const gotoRedmineIssue = (cardId: string) => {
-  const url = `${Config.redminePublicUrl}/issues/${cardId}`
+  const url = `${getConfig().redminePublicUrl}/issues/${cardId}`
   window.open(url)
 }
 

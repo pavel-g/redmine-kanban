@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import {editBoardGeneratorInputStore} from "../store/edit-board-generator-input-store";
 import {EditBoardGeneratorTypeEnum} from "../enums/edit-board-generator-type-enum";
 import axios from "axios";
-import {Config} from "../config";
+import {getConfig} from "../config";
 
 export const EditBoardGeneratorInputForm = observer((props: {onGenerate?: (config: string) => void}) => {
   const onChange = delay((event: any) => {
@@ -17,7 +17,7 @@ export const EditBoardGeneratorInputForm = observer((props: {onGenerate?: (confi
 
   const onClick = async () => {
     if (props.onGenerate) {
-      const backendUrl = Config.backendUrl
+      const backendUrl = getConfig().backendUrl
       if (editBoardGeneratorInputStore.type === EditBoardGeneratorTypeEnum.ROOT) {
         const issueNumber = editBoardGeneratorInputStore.rootOrNull
         const resp = await axios.get<string>(`${backendUrl}/generate-from-root/${issueNumber}`)

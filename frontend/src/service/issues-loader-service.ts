@@ -1,5 +1,5 @@
 import {RedmineIssueData} from "../models/redmine-issue-data";
-import {Config} from "../config";
+import {getConfig} from "../config";
 import axios from "axios";
 
 type RedmineIssuesDataStore = {[id: number]: RedmineIssueData}
@@ -13,7 +13,7 @@ export class IssuesLoaderService {
       return this.issues[issueNumber]
     }
 
-    const url = `${Config.backendUrl}/issue/${issueNumber}`
+    const url = `${getConfig().backendUrl}/issue/${issueNumber}`
     const resp = await axios.get<RedmineIssueData>(url)
     const issueData = resp.data
     this.issues[issueNumber] = issueData
@@ -33,7 +33,7 @@ export class IssuesLoaderService {
       }
     }
 
-    const url = `${Config.backendUrl}/issues`
+    const url = `${getConfig().backendUrl}/issues`
     const resp = await axios.post<RedmineIssueData[]>(url, idsForLoading)
 
     if (resp.data && resp.data.length > 0) {

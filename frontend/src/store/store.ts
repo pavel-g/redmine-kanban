@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {Config} from "../config";
+import {getConfig} from "../config";
 import {action, makeObservable, observable} from "mobx";
 import {Board} from "../models/board";
 import {IssueParam} from "../models/issue-param";
@@ -58,7 +58,7 @@ export class Store {
       return []
     }
     if (this.data.length === 0 || force) {
-      const response = await axios.get<Board>(`${Config.backendUrl}/board/${this.id}`)
+      const response = await axios.get<Board>(`${getConfig().backendUrl}/board/${this.id}`)
       if (!response || !response.data) {
         return []
       }
@@ -93,13 +93,13 @@ export class Store {
     const postData = {
       config: JSON.parse(config)
     }
-    await axios.post(`${Config.backendUrl}/board/${this.id}/update`, postData)
+    await axios.post(`${getConfig().backendUrl}/board/${this.id}/update`, postData)
     await this.loadData(true)
   }
 
   async addGroupIssue(issueNumber: number, loadChildren: boolean): Promise<void> {
     const children = (loadChildren)
-      ? (await axios.get<number[]>(`${Config.backendUrl}/issue/${issueNumber}/children`)).data
+      ? (await axios.get<number[]>(`${getConfig().backendUrl}/issue/${issueNumber}/children`)).data
       : null
 
     const issueParam: IssueParam = {number: issueNumber}
@@ -119,7 +119,7 @@ export class Store {
     const postData = {
       config: this.config.config
     }
-    await axios.post(`${Config.backendUrl}/board/${this.id}/update`, postData)
+    await axios.post(`${getConfig().backendUrl}/board/${this.id}/update`, postData)
     await this.loadData(true)
   }
 
@@ -141,7 +141,7 @@ export class Store {
     const postData = {
       config: this.config.config
     }
-    await axios.post(`${Config.backendUrl}/board/${this.id}/update`, postData)
+    await axios.post(`${getConfig().backendUrl}/board/${this.id}/update`, postData)
     await this.loadData(true)
   }
 
@@ -162,7 +162,7 @@ export class Store {
     const postData = {
       config: this.config.config
     }
-    await axios.post(`${Config.backendUrl}/board/${this.id}/update`, postData)
+    await axios.post(`${getConfig().backendUrl}/board/${this.id}/update`, postData)
     await this.loadData(true)
   }
 
@@ -185,7 +185,7 @@ export class Store {
     const postData = {
       config: this.config.config
     }
-    await axios.post(`${Config.backendUrl}/board/${this.id}/update`, postData)
+    await axios.post(`${getConfig().backendUrl}/board/${this.id}/update`, postData)
     await this.loadData(true)
   }
 
@@ -225,7 +225,7 @@ export class Store {
     const postData = {
       config: this.config.config
     }
-    await axios.post(`${Config.backendUrl}/board/${this.id}/update`, postData)
+    await axios.post(`${getConfig().backendUrl}/board/${this.id}/update`, postData)
     await this.loadData(true)
   }
 

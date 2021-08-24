@@ -14,7 +14,7 @@ import {editBoardDialogStore} from "./store/edit-board-dialog";
 import EditIcon from '@material-ui/icons/Edit';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import axios from "axios";
-import {Config} from "./config";
+import {getConfig} from "./config";
 import {Board} from "./models/board";
 import AddGroupDialog from "./components/add-group-dialog";
 import {AddGroupDialogStore} from "./store/add-group-dialog-store";
@@ -46,7 +46,7 @@ const OnOpenSidebarClick = () => {
 
 const EditButtonClick = async () => {
   const boardId = store.id
-  const resp = await axios.get<Board>(`${Config.backendUrl}/board/${boardId}`)
+  const resp = await axios.get<Board>(`${getConfig().backendUrl}/board/${boardId}`)
   const data = resp.data
   editBoardDialogStore.data.config = JSON.stringify(data.config, null, "    ")
   editBoardDialogStore.data.visible = true

@@ -3,7 +3,7 @@ import {CustomCardModel} from "../models/custom-card-model";
 import {observer} from "mobx-react";
 import {CardHeader, CardRightContent, CardTitle, Detail, Footer, MovableCardWrapper} from "../styles/Base";
 import {CustomCardMergerequestsField} from "./custom-card-mergerequests-field";
-import {Config} from "../config";
+import {getConfig} from "../config";
 import {customCardSettingsStore} from "../store/custom-card-settings-store";
 import {CustomCardSettingsUsersViewOption} from "../models/store/custom-card-settings-model";
 import {CustomCardSpentTime} from "./custom-card-spent-time";
@@ -21,7 +21,7 @@ export const CustomCard = observer((props: CustomCardModel) => {
 
   const metadata = props.metadata
 
-  const issueUrl = `${Config.redminePublicUrl}/issues/${metadata.issueNumber}`
+  const issueUrl = `${getConfig().redminePublicUrl}/issues/${metadata.issueNumber}`
 
   const onTitleClick = () => {
     window.open(issueUrl)

@@ -1,0 +1,24 @@
+#FROM node:14-alpine3.11 as build-stage
+#WORKDIR /app
+#
+#COPY package*json ./
+#
+#COPY .env .
+#RUN npm install
+#COPY . .
+#RUN npm run build
+
+FROM nginx:1.13.12-alpine as production-stage
+COPY build /usr/share/nginx/html
+
+COPY generate-envjs.sh /
+RUN chmod +x /generate-envjs.sh
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 80
+
+#ENTRYPOINT [ "/generate-envjs.sh", "/usr/share/nginx/html/env.js" ]
+#CMD ["nginx", "-g", "daemon off;"]
+
+ENTRYPOINT [ "/entrypoint.sh" ]
